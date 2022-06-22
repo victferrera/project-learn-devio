@@ -2,6 +2,7 @@
 using AppMercadoBasico.Data;
 using AppMercadoBasico.Models;
 using AppMercadoBasico.ViewModels;
+using Microsoft.EntityFrameworkCore;
 using System.Net;
 
 namespace AppMercadoBasico.Repository
@@ -30,7 +31,7 @@ namespace AppMercadoBasico.Repository
                         _context.Customers.Remove(customer);
                         _context.SaveChanges();
 
-                        
+
                         _viewModel.result.Add("StatusCode", HttpStatusCode.Created);
                         _viewModel.result.Add("Message", $"Cliente {customer.Name} excluído com sucesso!");
 
@@ -66,7 +67,21 @@ namespace AppMercadoBasico.Repository
 
         public ViewModel Get(Guid id)
         {
-            throw new NotImplementedException();
+            var customer = _context.Customers.Include(c => c.Address).FirstOrDefault(x => x.Id == id);
+
+            if (customer != null)
+            {
+                _viewModel.customer = customer;
+
+                return _viewModel;
+            }
+            else
+            {
+                _viewModel.result.Add("StatusCode", HttpStatusCode.NoContent);
+                _viewModel.result.Add("Message", $"Nenhuma cliente encontrado!");
+
+                return _viewModel;
+            }
         }
 
         public ViewModel GetAll()
@@ -100,8 +115,9 @@ namespace AppMercadoBasico.Repository
                 _viewModel.result.Add("Message", "Cliente criado com sucesso!");
 
                 return _viewModel;
-                
-            }catch(Exception e)
+
+            }
+            catch (Exception e)
             {
                 _viewModel.result.Clear();
                 _viewModel.result.Add("StatusCode", HttpStatusCode.BadRequest);
@@ -113,7 +129,37 @@ namespace AppMercadoBasico.Repository
 
         public ViewModel Update(Guid id, Customer model)
         {
-            throw new NotImplementedException();
+            if (id != model.Id)
+            {
+                _viewModel.result.Clear();
+                _viewModel.result.Add("StatusCode", HttpStatusCode.BadRequest);
+                _viewModel.result.Add("Message", "Ocorreu um erro inesperado, tente novamente mais tarde ou contate o administrador!");
+                return _viewModel;
+            }
+            else
+            {
+                var customer = _context.Customers.AsNoTracking().FirstOrDefault(x => x.Id == id);
+
+                if (customer is null)
+                {
+                    _viewModel.result.Clear();
+                    _viewModel.result.Add("StatusCode", HttpStatusCode.NotFound);
+                    _viewModel.result.Add("Message", "O cliente não foi encontrado para edição! :(");
+                    return _viewModel;
+                }
+                else
+                {
+                    _context.Update(model);
+                    _context.SaveChanges();
+                    model = null;
+
+                    _viewModel.result.Clear();
+                    _viewModel.result.Add("StatusCode", HttpStatusCode.OK);
+                    _viewModel.result.Add("Message", $"Informações do cliente {customer.Name} alteradas com sucesso!");
+
+                    return _viewModel;
+                }
+            }
         }
     }
 }

@@ -1,5 +1,9 @@
 ﻿@model AppMercadoBasico.Models.Customer
 
+
+<div class="mb-3">
+    <input type="hidden" asp-for="@Model.Address.Id" class="form-control">
+</div>
 <div class="mb-3">
     <label asp-for="@Model.Address.Street" class="form-label"></label>
     <input type="Text" asp-for="@Model.Address.Street" class="form-control">
