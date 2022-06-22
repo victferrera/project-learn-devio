@@ -47,5 +47,25 @@ namespace AppMercadoBasico.Controllers
 
             return View("Index", _viewModel);
         }
+
+        [HttpGet]
+        public ViewResult Edit(Guid id)
+        {
+            var customer = _customersRepository.Get(id).customer;
+
+            return View(customer);
+        }
+
+        [HttpPost]
+        public ViewResult Update(Guid id, Customer customer)
+        {
+
+
+            _viewModel.result = _customersRepository.Update(id, customer).result;
+            _viewModel.CustomerList.Clear();
+            _viewModel.CustomerList = _customersRepository.GetAll().CustomerList;
+
+            return View("Index", _viewModel);
+        }
     }
 }

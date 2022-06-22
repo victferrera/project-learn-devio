@@ -1,0 +1,17 @@
+﻿@model AppMercadoBasico.Models.Customer;
+
+@{
+    ViewData["Title"] = "Edit customer info";
+}
+
+<div class="container-fluid col-4">
+    <form asp-action="Update" asp-controller="Customers" method="post">
+        <h2>Customer</h2>
+        <hr />
+        <partial name="_CustomersForm" />
+        <h2>Customer Address</h2>
+        <hr />
+        <partial name="_AddressForm" />
+        <button type="submit" class="btn btn-primary">Save</button>
+    </form>
+</div>

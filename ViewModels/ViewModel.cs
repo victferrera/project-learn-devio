@@ -17,6 +17,7 @@ namespace AppMercadoBasico.ViewModels
         public Dictionary<string, dynamic> result;
         public Address address;
         public List<Customer> CustomerList;
+        public Customer customer;
 
     }
 }
