@@ -1,0 +1,11 @@
+﻿@model AppMercadoBasico.Models.Product
+
+@{
+    ViewData["Title"] = "New products";
+}
+
+<div class="container-md col-4">
+    <form asp-controller="Products" asp-action="Save" method="post">
+            <partial name="_ProductsForm" />
+    </form>
+</div>

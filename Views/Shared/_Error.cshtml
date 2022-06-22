@@ -1,0 +1,28 @@
+﻿@using System.Net;
+@model AppMercadoBasico.ViewModels.ViewModel
+
+@if (Model.result.ContainsValue(HttpStatusCode.NoContent))
+{
+    <div class="mt-2">
+        <div class="alert alert-warning" role="alert">
+            @Model.result["Message"]<br/>
+        </div>
+    </div>
+}
+@if (Model.result.ContainsValue(HttpStatusCode.Created) || Model.result.ContainsValue(HttpStatusCode.OK))
+{
+    <div  class="mt-2">
+        <div class="alert alert-success" role="alert">
+            @Model.result["Message"]<br/>
+        </div>
+    </div>
+}
+
+@if (Model.result.ContainsValue(HttpStatusCode.BadRequest))
+{
+    <div  class="mt-2">
+        <div class="alert alert-danger" role="alert">
+            @Model.result["Message"]<br/>
+        </div>
+    </div>
+}

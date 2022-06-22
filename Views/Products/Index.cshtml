@@ -1,0 +1,35 @@
+﻿@model AppMercadoBasico.ViewModels.ViewModel
+
+@{
+    ViewData["Title"] = "Products List";
+}
+
+<div class="container-md col-4">
+    <a class="btn btn-primary" asp-controller="Products" asp-action="Create">New Product</a><partial name="_Error" />
+</div>
+<div class="container-md col-4 mt-4">
+    <table class="table">
+        <thead class="table-dark">
+            <tr>
+                <th scope="col">Name</th>
+                <th scope="col">Description</th>
+                <th scope="col">Price</th>
+                <th scope="col">Action</th>
+            </tr>
+        </thead>
+        <tbody class="table-striped">
+            @foreach (var product in @Model.ProductsList)
+            {
+                <tr>
+                    <td>@product.Name</td>
+                    <td>@product.Description</td>
+                    <td>@product.Price</td>
+                    <td>
+                        <a asp-controller="Products" asp-action="Edit" asp-route-id="@product.Id" class="btn btn-info">Edit</a>
+                        <a asp-controller="Products" asp-action="Delete" asp-route-id="@product.Id" class="btn btn-danger">Delete</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
