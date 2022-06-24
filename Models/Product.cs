@@ -24,6 +24,6 @@ namespace AppMercadoBasico.Models
         public DateTime CreateAt { get; set; }
 
         /* EF Relation */
-        public IEnumerable<Customer> Customers { get; set; }
+        public IEnumerable<CustomerProduct> CustomerProduct { get; set; }
     }
 }

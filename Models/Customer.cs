@@ -8,6 +8,6 @@
 
         /* EF Relation */
         public Address Address { get; set; }
-        public IEnumerable<Product> Products { get; set; }
+        public IEnumerable<CustomerProduct> CustomerProduct { get; set; }
     }
 }

@@ -10,6 +10,7 @@ namespace AppMercadoBasico.Extensions
             services.AddControllersWithViews();
             services.AddScoped<ProductsRepository>();
             services.AddScoped<CustomersRepository>();
+            services.AddScoped<SellRepository>();
             services.AddScoped<ViewModel>();
 
             return services;

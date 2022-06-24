@@ -10,6 +10,7 @@ namespace AppMercadoBasico.ViewModels
             ProductsList = new List<Product>();
             result = new Dictionary<string, dynamic>();
             CustomerList = new List<Customer>();
+            CustomerProductsList = new List<CustomerProduct>();
         }
 
         public IEnumerable<Product> ProductsList;
@@ -18,6 +19,7 @@ namespace AppMercadoBasico.ViewModels
         public Address address;
         public List<Customer> CustomerList;
         public Customer customer;
+        public List<CustomerProduct> CustomerProductsList;
 
     }
 }
